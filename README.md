@@ -1,6 +1,6 @@
 # Shadowsocks AWS EC2 Installer
 
-Slightly modified @teddysun's script. All credit goes to [@teddysun](teddysun)
+Slightly modified @teddysun's script. All credit goes to [@Teddysun](https://github.com/teddysun)
 
 Install Shadowsocks-Python, ShadowsocksR, Shadowsocks-Go and Shadowsocks-libev on AWS EC2 within 3 commands.
 
