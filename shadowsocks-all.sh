@@ -3,7 +3,7 @@
 # Auto install Shadowsocks Server (all version)
 #
 # Copyright (C) 2016-2017 Teddysun <i@teddysun.com>
-# Edited: m@climbthewall.today
+# Edited for EC2: m@climbthewall.today
 #
 # System Required:  CentOS 6+, Debian7+, Ubuntu12+
 #
@@ -20,7 +20,7 @@
 # @cyfdecyf   <https://twitter.com/cyfdecyf>
 # @madeye     <https://github.com/madeye>
 # 
-# Intro:  https://teddysun.com/486.html
+# Base Author:  https://teddysun.com/486.html
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
@@ -969,8 +969,8 @@ install_completed_python() {
     clear
     ${shadowsocks_python_init} start
     echo
-    echo -e "Congratulations, ${green}${software[0]}${plain} server install completed!"
-    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}"
+    echo -e "Congratulations, ${green}${software[0]}${plain} server installation completed!"
+    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}" "(Private displayed here, make sure you use the public IP in the client side)"
     echo -e "Your Server Port      : ${red} ${shadowsocksport} ${plain}"
     echo -e "Your Password         : ${red} ${shadowsockspwd} ${plain}"
     echo -e "Your Encryption Method: ${red} ${shadowsockscipher} ${plain}"
@@ -980,8 +980,8 @@ install_completed_r() {
     clear
     ${shadowsocks_r_init} start
     echo
-    echo -e "Congratulations, ${green}${software[1]}${plain} server install completed!"
-    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}"
+    echo -e "Congratulations, ${green}${software[1]}${plain} server installation completed!"
+    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}" "(Private displayed here, make sure you use the public IP in the client side)"
     echo -e "Your Server Port      : ${red} ${shadowsocksport} ${plain}"
     echo -e "Your Password         : ${red} ${shadowsockspwd} ${plain}"
     echo -e "Your Protocol         : ${red} ${shadowsockprotocol} ${plain}"
@@ -993,8 +993,8 @@ install_completed_go() {
     clear
     ${shadowsocks_go_init} start
     echo
-    echo -e "Congratulations, ${green}${software[2]}${plain} server install completed!"
-    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}"
+    echo -e "Congratulations, ${green}${software[2]}${plain} server installation completed!"
+    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}" "(Private displayed here, make sure you use the public IP in the client side)"
     echo -e "Your Server Port      : ${red} ${shadowsocksport} ${plain}"
     echo -e "Your Password         : ${red} ${shadowsockspwd} ${plain}"
     echo -e "Your Encryption Method: ${red} ${shadowsockscipher} ${plain}"
@@ -1006,7 +1006,7 @@ install_completed_libev() {
     ${shadowsocks_libev_init} start
     echo
     echo -e "Congratulations, ${green}${software[3]}${plain} server install completed!"
-    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}"
+    echo -e "Your Server IP        : ${red} $(get_ip) ${plain}" "(Private displayed here, make sure you use the public IP in the client side)"
     echo -e "Your Server Port      : ${red} ${shadowsocksport} ${plain}"
     echo -e "Your Password         : ${red} ${shadowsockspwd} ${plain}"
     if [ "$(command -v obfs-server)" ]; then
@@ -1020,6 +1020,7 @@ qr_generate_python() {
         local tmp=$(echo -n "${shadowsockscipher}:${shadowsockspwd}" | base64 -w0)
         local qr_code="ss://${tmp}@$(get_ip):${shadowsocksport}"
         echo
+        echo "${red} Very Important: Be sure to scan the QR code and edit the IP. Make sure to use your public IP in the client side (Not the private IP our system just added to the config. file)"
         echo "Your QR Code: (For Shadowsocks Windows, OSX, Android and iOS clients)"
         echo -e "${green} ${qr_code} ${plain}"
         echo -n "${qr_code}" | qrencode -s8 -o ${cur_dir}/shadowsocks_python_qr.png
@@ -1034,6 +1035,7 @@ qr_generate_r() {
         local tmp2=$(echo -n "$(get_ip):${shadowsocksport}:${shadowsockprotocol}:${shadowsockscipher}:${shadowsockobfs}:${tmp1}/?obfsparam=" | base64 -w0)
         local qr_code="ssr://${tmp2}"
         echo
+        echo "${red} Very Important: Be sure to scan the QR code and edit the IP. Make sure to use your public IP in the client side (Not the private IP our system just added to the config. file)"
         echo "Your QR Code: (For ShadowsocksR Windows, Android clients only)"
         echo -e "${green} ${qr_code} ${plain}"
         echo -n "${qr_code}" | qrencode -s8 -o ${cur_dir}/shadowsocks_r_qr.png
@@ -1047,6 +1049,7 @@ qr_generate_go() {
         local tmp=$(echo -n "${shadowsockscipher}:${shadowsockspwd}" | base64 -w0)
         local qr_code="ss://${tmp}@$(get_ip):${shadowsocksport}"
         echo
+        echo "${red} Very Important: Be sure to scan the QR code and edit the IP. Make sure to use your public IP in the client side (Not the private IP our system just added to the config. file)"
         echo "Your QR Code: (For Shadowsocks Windows, OSX, Android and iOS clients)"
         echo -e "${green} ${qr_code} ${plain}"
         echo -n "${qr_code}" | qrencode -s8 -o ${cur_dir}/shadowsocks_go_qr.png
@@ -1060,6 +1063,7 @@ qr_generate_libev() {
         local tmp=$(echo -n "${shadowsockscipher}:${shadowsockspwd}" | base64 -w0)
         local qr_code="ss://${tmp}@$(get_ip):${shadowsocksport}"
         echo
+        echo "${red} Very Important: Be sure to scan the QR code and edit the IP. Make sure to use your public IP in the client side (Not the private IP our system just added to the config. file)"
         echo "Your QR Code: (For Shadowsocks Windows, OSX, Android and iOS clients)"
         echo -e "${green} ${qr_code} ${plain}"
         echo -n "${qr_code}" | qrencode -s8 -o ${cur_dir}/shadowsocks_libev_qr.png
@@ -1096,8 +1100,8 @@ install_main(){
     fi
 
     echo
-    echo "Welcome to visit: https://teddysun.com/486.html"
-    echo "Enjoy it!"
+    echo "Thanks: https://teddysun.com/486.html"
+    echo "Modified for EC2 users by #ClimbTheWall"
     echo
 }
 
